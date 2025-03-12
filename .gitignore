@@ -1,2 +1,4 @@
+memoization
+memoization.o
+*.o
 .history
-.o
