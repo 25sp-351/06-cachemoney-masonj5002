@@ -1,4 +1,3 @@
-memoization
-memoization.o
+cache_money
 *.o
 .history
