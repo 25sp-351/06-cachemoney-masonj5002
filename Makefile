@@ -1,13 +1,16 @@
-all: memoization
+all: cache_money
 
 CC = gcc
 CFLAGS = -Wall
 
-memoization: memoization.o
-	gcc $(CFLAGS) memoization.o -o memoization -lm
+cache_money: cache_money.o money_to_words.o
+	$(CC) $(CFLAGS) cache_money.o money_to_words.o -o cache_money -lm
 
-memoization.o: memoization.c
-	gcc $(CFLAGS) -c memoization.c
+cache_money.o: cache_money.c money_to_words.h
+	$(CC) $(CFLAGS) -c cache_money.c
+
+money_to_words.o: money_to_words.c money_to_words.h
+	$(CC) $(CFLAGS) -c money_to_words.c
 
 clean:
-	rm -f *.o memoization
+	rm -f *.o cache_money
