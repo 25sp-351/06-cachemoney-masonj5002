@@ -1,8 +1,7 @@
 # 06 - Cache money-to-words
-## Progress Update
-Hi Prof. McKenzie,
 
-My apologies, I got behind on some of the assignments. I'm pushing my progress to the repository as soon as I can.
+## Instructions
 
-Thank you,
--- Mason
+Cache your money-to-words function.
+
+Write tests.
