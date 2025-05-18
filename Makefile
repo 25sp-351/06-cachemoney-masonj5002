@@ -1,14 +1,15 @@
-all: cache_money random_replacement.so
+POLICIES = random_replacement least_recently_used least_frequently_used
+POLICY_LIBS = $(addsuffix .so, $(POLICIES))
+EXECUTABLES = cache_money_rr cache_money_lru cache_money_lfu
 
 CC = gcc
 CFLAGS = -Wall -fPIC
 LDFLAGS = -ldl -lm
 
-cache_money: cache_money.o money_to_words.o cache.o
-	$(CC) $(CFLAGS) cache_money.o money_to_words.o cache.o -o cache_money $(LDFLAGS)
+all: $(EXECUTABLES) $(POLICY_LIBS)
 
-cache_money.o: cache_money.c money_to_words.h cache.h
-	$(CC) $(CFLAGS) -c cache_money.c
+%.so: %.c cache.h
+	$(CC) $(CFLAGS) -shared -o $@ $<
 
 money_to_words.o: money_to_words.c money_to_words.h
 	$(CC) $(CFLAGS) -c money_to_words.c
@@ -16,8 +17,17 @@ money_to_words.o: money_to_words.c money_to_words.h
 cache.o: cache.c cache.h
 	$(CC) $(CFLAGS) -c cache.c
 
-random_replacement.so: random_replacement.c cache.h
-	$(CC) $(CFLAGS) -shared -o random_replacement.so random_replacement.c
+cache_money.o: cache_money.c money_to_words.h cache.h
+	$(CC) $(CFLAGS) -c cache_money.c
+
+cache_money_rr: cache_money.o money_to_words.o cache.o
+	$(CC) $(CFLAGS) cache_money.o money_to_words.o cache.o -o cache_money_rr $(LDFLAGS)
+
+cache_money_lru: cache_money.o money_to_words.o cache.o
+	$(CC) $(CFLAGS) cache_money.o money_to_words.o cache.o -o cache_money_lru $(LDFLAGS)
+
+cache_money_lfu: cache_money.o money_to_words.o cache.o
+	$(CC) $(CFLAGS) cache_money.o money_to_words.o cache.o -o cache_money_lfu $(LDFLAGS)
 
 clean:
-	rm -f *.o *.so cache_money
+	rm -f *.o *.so $(EXECUTABLES)
