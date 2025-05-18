@@ -8,15 +8,15 @@
 
 ### Policy A (Least Recently Used):
 
-`./rodcut_lru`
+`./cache_money_lru`
 
 ### Policy B (Least Frequently Used):
 
-`./rodcut_lfu`
+`./cache_money_lfu`
 
 ### Policy C (Random Replacement):
 
-`./rodcut_rr`
+`./cache_money_rr`
 
 ## Assignment Instructions
 
