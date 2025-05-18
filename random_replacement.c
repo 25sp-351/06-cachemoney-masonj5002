@@ -12,7 +12,7 @@ typedef struct {
     bool valid;
 } CacheEntry;
 
-#define CACHE_SIZE 5
+#define CACHE_SIZE 7
 CacheEntry cache[CACHE_SIZE];
 int current_cache_size;
 

@@ -12,7 +12,7 @@ typedef struct {
     int use_count;  // *frequency*
 } CacheEntry;
 
-#define CACHE_SIZE 20
+#define CACHE_SIZE 7
 CacheEntry cache[CACHE_SIZE];
 int current_cache_size;
 
