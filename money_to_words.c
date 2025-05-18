@@ -19,7 +19,7 @@ char* intToString(int value) {
 
 char* dollarsToString(int value) {
     if (value <= 0)
-        return "zero dollars";
+        return "zero dollars ";
     char text_output[130] = "";
 
     char* scales[]        = {"", "thousand ", "million ", "billion "};

@@ -1,17 +1,18 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 #include "cache.h"
 
 typedef struct {
     KeyType key;
-    ValueType value;
+    ValueType value;  // Now a char* string
     bool valid;
 } CacheEntry;
 
-#define CACHE_SIZE 7 // 1000
+#define CACHE_SIZE 5
 CacheEntry cache[CACHE_SIZE];
 int current_cache_size;
 
@@ -32,12 +33,21 @@ void initialize(void) {
     cache_hits         = 0;
     cache_misses       = 0;
 
-    for (int ix = 0; ix < CACHE_SIZE; ix++)
-        cache[ix].valid = VALUE_NOT_PRESENT;
+    for (int ix = 0; ix < CACHE_SIZE; ix++) {
+        cache[ix].valid = false;
+        cache[ix].value = NULL;
+    }
 }
 
 void cleanup(void) {
     fprintf(stderr, __FILE__ " cleanup()\n");
+    for (int ix = 0; ix < CACHE_SIZE; ix++) {
+        if (cache[ix].valid && cache[ix].value != NULL) {
+            free(cache[ix].value);
+            cache[ix].value = NULL;
+        }
+        cache[ix].valid = false;
+    }
 }
 
 CacheStat* statistics(void) {
@@ -60,16 +70,6 @@ void reset_statistics(void) {
     cache_misses   = 0;
 }
 
-// bool _is_present(KeyType key) {
-//     bool present = false;
-//     for (int ix = 0; ix < CACHE_SIZE; ix++)
-//         if (cache[ix].valid && cache[ix].key == key)
-//             present = true;
-//     fprintf(stderr, __FILE__ " is_present(" KEY_FMT ") = %s \n", key,
-//             present ? "true" : "false");
-//     return present;
-// }
-
 ValueType _get(KeyType key, bool* found) {
     for (int ix = 0; ix < CACHE_SIZE; ix++) {
         if (cache[ix].valid && cache[ix].key == key) {
@@ -82,7 +82,7 @@ ValueType _get(KeyType key, bool* found) {
     }
     fprintf(stderr, __FILE__ " is_present(" KEY_FMT ") = false\n", key);
     *found = false;
-    return 0;
+    return NULL;
 }
 
 void _insert(KeyType key, ValueType value) {
@@ -100,10 +100,14 @@ void _insert(KeyType key, ValueType value) {
         // Cache is full, randomly evict
         index = rand() % CACHE_SIZE;
         fprintf(stderr, __FILE__ " Cache is full. Evicting at %d\n", index);
+        if (cache[index].valid && cache[index].value != NULL) {
+            free(cache[index].value);
+            cache[index].value = NULL;
+        }
     }
 
     cache[index].key   = key;
-    cache[index].value = value;
+    cache[index].value = strdup(value);  // Store a copy
     cache[index].valid = true;
 }
 
