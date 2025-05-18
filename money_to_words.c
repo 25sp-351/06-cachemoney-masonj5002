@@ -34,8 +34,7 @@ char* dollarsToString(int value) {
         "fifteen ", "sixteen ", "seventeen ", "eighteen ", "nineteen "};
 
     int scale_size = 0;
-    if (value > 999999999 &&
-        value < 999999999999) {  // 999,999,999 && 999,999,999,999
+    if (value > 999999999) {  // 999,999,999
         scale_size = 3;
     } else if (value > 999999) {  // 999,999
         scale_size = 2;
