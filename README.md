@@ -8,15 +8,15 @@
 
 ### Policy A (Least Recently Used):
 
-`./rodcut_lru length_value_pairs.txt`
+`./rodcut_lru`
 
 ### Policy B (Least Frequently Used):
 
-`./rodcut_lfu length_value_pairs.txt`
+`./rodcut_lfu`
 
 ### Policy C (Random Replacement):
 
-`./rodcut_rr length_value_pairs.txt`
+`./rodcut_rr`
 
 ## Assignment Instructions
 
