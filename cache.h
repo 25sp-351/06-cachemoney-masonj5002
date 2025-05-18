@@ -13,7 +13,7 @@ typedef int KeyType;
 #define KEY_FMT "%d"
 
 typedef int ValueType;
-#define VALUE_FMT "%d"
+#define VALUE_FMT "%s"
 
 
 
