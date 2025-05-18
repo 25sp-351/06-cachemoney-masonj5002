@@ -12,7 +12,7 @@
 typedef int KeyType;
 #define KEY_FMT "%d"
 
-typedef int ValueType;
+typedef char* ValueType;
 #define VALUE_FMT "%s"
 
 
