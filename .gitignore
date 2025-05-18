@@ -1,4 +1,7 @@
 cache_money
+cache_money_lru
+cache_money_lfu
+cache_money_rr
 *.o
 *.so
 .history
